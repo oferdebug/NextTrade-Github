@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation';
 import {LogOut} from "lucide-react";
 import NavItems from "@/components/NavItems";
 
-const UserDropDown = ({ asChild = false }) => {
+const UserDropDown =() => {
     const router = useRouter();
 
     const handleSignOut = () => {
@@ -25,7 +25,7 @@ const UserDropDown = ({ asChild = false }) => {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild={asChild}>
+            <DropdownMenuTrigger asChild>
                 <Button
                     variant="ghost"
                     className="flex items-center gap-3 text-gray-400 hover:text-yellow-500"
