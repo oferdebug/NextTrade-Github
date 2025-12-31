@@ -28,10 +28,10 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
         headers: await headers(),
     });
 
-    const user = {
-        ...session?.user,
-        image: session?.user?.image || null,
-    };
+    const user = session?.user ? {
+        ...session.user,
+        image: session.user.image || null,
+    } : null;
 
     return (
         <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
