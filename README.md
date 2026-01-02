@@ -2,7 +2,7 @@
 
 # 📈✨ **NextTrade** ✨📊
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=32&duration=2800&pause=2000&color=00D9FF&center=true&vCenter=true&width=940&lines=The+Future+of+Market+Analytics+💎;Real-Time+Stock+Trading+Platform+🚀;Built+with+Next.js+%26+TypeScript+⚡;AI-Powered+Investment+Intelligence+🧠" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=32&duration=2800&pause=2000&color=00D9FF&center=true&vCenter=true&width=940&lines=The+Future+of+Market+Analytics+%F0%9F%92%8E;Real-Time+Stock+Trading+Platform+%F0%9F%9A%80;Built+with+Next.js+%26+TypeScript+%E2%9A%A1;AI-Powered+Investment+Intelligence+%F0%9F%A7%A0" alt="Typing SVG" />
 
 ### 🌟 **Track. Analyze. Dominate.** 🌟
 
