@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import type {ReactNode} from "react";
-import {TestimonialRotator} from "@/components/testimonials/TestimonialRotator";
-import {cn} from "@/lib/utils"; // Adjust the import path based on your project structure
+import type { ReactNode } from "react";
+import { TestimonialRotator } from "@/components/testimonials/TestimonialRotator";
 
 function Layout({ children }: { children: ReactNode }) {
     return (
@@ -25,9 +24,9 @@ function Layout({ children }: { children: ReactNode }) {
                 </div>
             </section>
 
-            <section className="auth-right-section flex flex-col justify-center px-10 order-2 lg:order-2">
-                <div className='z-0 relative lg:mt-4 lg:mb-8'>
-                    <div className={'grid grid-cols-1 items-end w-full'}>
+            <section className="auth-right-section flex flex-col justify-center px-10">
+                <div className='z-10 relative lg:mt-4 lg:mb-8'>
+                    <div className={'grid grid-cols-[minmax(0,1fr)_auto] items-end w-full'}>
                         <TestimonialRotator intervalMs={7000} />
                     </div>
                 </div>
@@ -41,12 +40,10 @@ function Layout({ children }: { children: ReactNode }) {
                             alt="NextTrade Dashboard Preview"
                             width={1200}
                             height={800}
-                            className={cn(
-                                "rounded-2xl border border-white/10 shadow-2xl",
-                                "transform-gpu transition-all duration-700 ease-out",
-                                "[rotateX:12deg] [rotateY:-8deg] [rotateZ:1deg]",
-                                "hover:[rotateX:0deg] hover:[rotateY:0deg] hover:[rotateZ:0deg] hover:scale-[1.02]"
-                            )}
+                            className="rounded-2xl border border-white/10 shadow-2xl
+                           transform-gpu transition-all duration-700 ease-out
+                           [rotateX:12deg] [rotateY:-8deg] [rotateZ:1deg]
+                           hover:[rotateX:0deg] hover:[rotateY:0deg] hover:[rotateZ:0deg] hover:scale-[1.02]"
                             priority
                         />
                     </div>
