@@ -9,8 +9,13 @@ export interface DailyNews {
 }
 
 /**
- * Generates daily market news content using Gemini AI with Google Search Grounding
- * Searches for current market data, top movers, sector performance, and key headlines
+ * Generate a current HTML-formatted daily market report covering the last 24 hours.
+ *
+ * The report includes a market overview, top gainers and losers, sector performance,
+ * and key market headlines, formatted with the required inline styles for direct embedding.
+ *
+ * @returns A DailyNews object containing the report `date` and the HTML `newsContent`.
+ * @throws If `GEMINI_API_KEY` is not set in environment variables.
  */
 export async function generateDailyNews(): Promise<DailyNews> {
     const apiKey = process.env.GEMINI_API_KEY;

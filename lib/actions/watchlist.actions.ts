@@ -4,7 +4,10 @@ import {connectToDatabase} from "@/database/mongoose";
 import Watchlist from "@/database/models/watchlist.model";
 
 /**
- * Retrieves the watchlist symbols for a user based on their email.
+ * Retrieve the list of watchlist ticker symbols for the user identified by the given email.
+ *
+ * @param email - The user's email address used to locate their watchlist
+ * @returns An array of watchlist symbols for the user; returns an empty array if the user is not found or on error
  */
 export async function getWatchlistSymbolsByEmail(email: string): Promise<string[]> {
     try {
@@ -37,6 +40,14 @@ export async function getWatchlistSymbolsByEmail(email: string): Promise<string[
 }
 
 
+/**
+ * Add a stock (ticker and company) to the watchlist of the user identified by email.
+ *
+ * @param symbol - The stock ticker symbol to add (case-insensitive; will be uppercased)
+ * @param company - The company name associated with the symbol
+ * @param email - The user's email address used to locate their account
+ * @returns An object with `success: true` on successful addition. If the entry already exists, returns `success: true` and a `message` of `"Already in watchlist"`. On failure returns `success: false` and an `error` message describing the failure.
+ */
 export async function addToWatchlist(
     symbol: string,
     company: string,
@@ -75,6 +86,13 @@ export async function addToWatchlist(
     }
 }
 
+/**
+ * Remove a stock symbol from the watchlist of the user identified by email.
+ *
+ * @param symbol - The stock symbol to remove (case-insensitive)
+ * @param email - The user's email address used to identify their account
+ * @returns An object with `success: true` when the entry was removed; `success: false` and an `error` message otherwise
+ */
 export async function removeFromWatchlist(symbol: string, email: string) {
     try {
         const mongoose = await connectToDatabase();
@@ -103,6 +121,11 @@ export async function removeFromWatchlist(symbol: string, email: string) {
     }
 }
 
+/**
+ * Check whether a stock symbol is present in a user's watchlist.
+ *
+ * @returns `true` if the user's watchlist contains the given symbol (comparison is case-insensitive), `false` otherwise.
+ */
 export async function isStockInWatchlist(symbol: string, email: string): Promise<boolean> {
     try {
         const mongoose = await connectToDatabase();
