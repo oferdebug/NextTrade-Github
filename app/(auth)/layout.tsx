@@ -5,6 +5,14 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { TestimonialRotator } from "@/components/testimonials/TestimonialRotator";
 
+/**
+ * Page layout for authentication-like screens with a left content column and a right preview column.
+ *
+ * The left column displays the site logo and renders the provided `children`. The right column shows a testimonial rotator and a decorative dashboard preview.
+ *
+ * @param children - Content to render in the left column (typically authentication forms or related content).
+ * @returns A JSX element representing the two-column auth layout with logo, content area, testimonial rotator, and dashboard preview.
+ */
 function Layout({ children }: { children: ReactNode }) {
     return (
         <main className="auth-layout">

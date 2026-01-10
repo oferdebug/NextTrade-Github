@@ -12,6 +12,14 @@ import {toast} from "sonner";
 import {useState} from "react";
 
 
+/**
+ * Render the sign-up form UI that collects user details, validates input, and submits a new account request.
+ *
+ * Displays inline validation errors, shows a page-level error banner and a toast on submission failure, and
+ * navigates to the app root on successful account creation.
+ *
+ * @returns The sign-up form React element.
+ */
 function SignUp() {
     const router = useRouter();
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
