@@ -19,7 +19,7 @@ import {useDebounce} from "@/hooks/useDebounce";
 interface SearchCommandProps {
     renderAs?: 'button' | 'text'
     label?: string
-    initialStocks?: any[]
+    initialStocks?: StockWithWatchlistStatus[]
     className?: string
 }
 
@@ -66,7 +66,7 @@ export function SearchCommand({
 
     useEffect(() => {
         debouncedSearch();
-    }, [searchTerm]);
+    }, [searchTerm, debouncedSearch]);
 
 
     const handleSelectStock = () => {
@@ -77,7 +77,7 @@ export function SearchCommand({
 
     return (
         <>
-            {renderAs === "button" ? (
+            {renderAs === "text" ? (
                 <span
                     onClick={() => setOpen(true)}
                     className={cn("search-text", className)}>
@@ -111,13 +111,13 @@ export function SearchCommand({
                         </CommandEmpty>
                     ) : displayStocks?.length === 0 ? (
                         <div className="search-list-indicator">
-                            {isSearchMode ? "No Results Found" : "No Stocks Avliable"}
+                            {isSearchMode ? "No Results Found" : "No Stocks Available"}
                         </div>
                     ) : (
                         <ul>
                             <div className="search-count">
                                 {isSearchMode ? "Search Results" : "Popular Stocks"}
-                                {``}({displayStocks?.length || 0})
+                                ({displayStocks?.length || 0})
                             </div>
                             {displayStocks?.map((stock, i) => (
                                 <li key={stock.symbol} className="search-item">
