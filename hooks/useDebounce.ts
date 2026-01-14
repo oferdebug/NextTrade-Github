@@ -15,5 +15,5 @@ export function useDebounce( callback: () => void, delay: number ) {
         timeoutRef.current = setTimeout( () => {
             callbackRef.current();
         }, delay );
-    }, [delay] )
+    }, [delay] );
 }
