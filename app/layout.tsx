@@ -7,7 +7,6 @@ import Header from "@/components/Header";
 
 import {auth} from "@/lib/better-auth/auth";
 import {headers} from "next/headers";
-import {SearchCommand} from "@/components/SearchCommand";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -38,11 +37,10 @@ const Layout = async ({children}: { children: React.ReactNode }) => {
     return (
         <html lang="en" className={`${geistSans.variable} ${geistMono.variable} dark`}>
         <body className="antialiased bg-gray-900">
-        <main className="min-h-screen text-gray-200"> ּ
+        <main className="min-h-screen text-gray-200">
             {/* Cast to User to satisfy the prop requirement */}
             <Header user={user as User}/>
             <div className={"container py-10 home-wrapper mx-auto"}>{children}</div>
-            <SearchCommand/>
         </main>
         </body>
         </html>

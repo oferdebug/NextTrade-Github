@@ -129,6 +129,7 @@ export const searchStocks = cache(async (query?: string): Promise<StockWithWatch
                     } as FinnhubSearchResult;
                 } catch (err) {
                     // If profile fetch fails, return a basic result
+                    console.error(`Failed to fetch profile for symbol ${symbol}:`, err);
                     return {
                         symbol: symbol,
                         description: symbol,
@@ -154,7 +155,7 @@ export const searchStocks = cache(async (query?: string): Promise<StockWithWatch
             .map((result) => ({
                 symbol: result.symbol.toUpperCase(),
                 name: result.description,
-                exchange: result.displaySymbol || 'US',
+                exchange: result.exchange || 'US',
                 type: result.type || 'Stock',
                 isInWatchlist: false,
             }));
