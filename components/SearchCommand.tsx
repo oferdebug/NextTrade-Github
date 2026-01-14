@@ -19,10 +19,21 @@ import {useDebounce} from "@/hooks/useDebounce";
 interface SearchCommandProps {
     renderAs?: 'button' | 'text'
     label?: string
-    initialStocks?: any[]
+    initialStocks?: StockWithWatchlistStatus[]
     className?: string
 }
 
+/**
+ * Render a searchable command-style dialog for finding and selecting stocks.
+ *
+ * Presents a trigger (button or text), an input with debounced search against `searchStocks`, and a list of results or popular stocks. Selecting a result navigates to the stock page and closes the dialog.
+ *
+ * @param renderAs - Either `'text'` to render the trigger as inline text or `'button'` to render it as a button element.
+ * @param label - The label displayed on the trigger.
+ * @param initialStocks - Initial list of stocks to show when no search term is entered; each item may include watchlist status.
+ * @param className - Optional additional CSS classes applied to the trigger element.
+ * @returns A React element rendering the search trigger and the command dialog UI for stock lookup and selection.
+ */
 export function SearchCommand({
                                   renderAs = 'button',
                                   label = 'Search Stocks',
@@ -66,7 +77,7 @@ export function SearchCommand({
 
     useEffect(() => {
         debouncedSearch();
-    }, [searchTerm]);
+    }, [searchTerm, debouncedSearch]);
 
 
     const handleSelectStock = () => {
@@ -77,7 +88,7 @@ export function SearchCommand({
 
     return (
         <>
-            {renderAs === "button" ? (
+            {renderAs === "text" ? (
                 <span
                     onClick={() => setOpen(true)}
                     className={cn("search-text", className)}>
@@ -111,13 +122,13 @@ export function SearchCommand({
                         </CommandEmpty>
                     ) : displayStocks?.length === 0 ? (
                         <div className="search-list-indicator">
-                            {isSearchMode ? "No Results Found" : "No Stocks Avliable"}
+                            {isSearchMode ? "No Results Found" : "No Stocks Available"}
                         </div>
                     ) : (
                         <ul>
                             <div className="search-count">
                                 {isSearchMode ? "Search Results" : "Popular Stocks"}
-                                {``}({displayStocks?.length || 0})
+                                ({displayStocks?.length || 0})
                             </div>
                             {displayStocks?.map((stock, i) => (
                                 <li key={stock.symbol} className="search-item">
