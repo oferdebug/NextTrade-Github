@@ -2,6 +2,15 @@ import {NextResponse} from "next/server";
 import type {NextRequest} from "next/server";
 import {getSessionCookie} from "better-auth/cookies";
 
+/**
+ * Enforces session-based access and rewrites specific Inngest discovery paths.
+ *
+ * Rewrites requests for Inngest discovery paths to `/api/inngest` to avoid 404s,
+ * redirects unauthenticated requests to `/sign-in`, and otherwise allows the request to proceed.
+ *
+ * @param request - The incoming Next.js request
+ * @returns A NextResponse that rewrites to `/api/inngest` for discovery paths, redirects to `/sign-in` when no session cookie is present, or allows the request to continue
+ */
 export function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 

@@ -25,7 +25,11 @@ async function fetchJSON<T>(url: string, revalidateSeconds?: number): Promise<T>
 }
 
 /**
- * Fetches news for specified symbols or general market news.
+ * Retrieve up to six market news articles for the given ticker symbols or general market news when no symbols are provided.
+ *
+ * @param symbols - Optional array of ticker symbols to fetch company-specific news for; when omitted or empty, general market news is returned
+ * @returns An array of formatted MarketNewsArticle objects (up to six), sorted by descending datetime for symbol-specific results
+ * @throws Error if news cannot be fetched
  */
 export async function getNews(symbols?: string[]): Promise<MarketNewsArticle[]> {
     try {

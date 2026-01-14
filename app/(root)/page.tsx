@@ -8,6 +8,13 @@ import {
 
 const scriptUrl = `https://s3.tradingview.com/external-embedding/embed-widget-`
 
+/**
+ * Render the home page composed of TradingView widgets arranged in two responsive grid sections.
+ *
+ * Renders Market Overview and Stock Heatmap in the first row, and Top Stories (timeline) and Market Quotes in the second row, each inside a configurable TradingViewWidget.
+ *
+ * @returns The React element for the Home page containing the configured TradingView widgets.
+ */
 function Home() {
     return (
         <div className='flex flex-col gap-8 w-full'>
