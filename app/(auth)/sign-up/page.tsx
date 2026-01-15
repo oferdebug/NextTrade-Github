@@ -5,7 +5,6 @@ import InputField from "@/components/forms/inputField";
 import SelectField from "@/components/forms/SelectField";
 import {INVESTMENT_GOALS, PREFERRED_INDUSTRIES, RISK_TOLERANCE_OPTIONS} from "@/lib/constants";
 import CountrySelectField from "@/components/forms/countrySelectField";
-import FooterLink from "@/components/forms/FooterLink";
 import {signUpWithEmail} from "@/lib/actions/auth.actions";
 import {useRouter} from "next/navigation";
 import {toast} from "sonner";
@@ -70,7 +69,7 @@ function SignUp() {
 
             {errorMsg && (
                 <div
-                    className="bg-red-500/10 border border-red-500/50 text-red-500 p-3 rounded-md mb-4 text-sm text-center">
+                    className="bg-red-500/10 border border-red-500/50 text-red-500 p-3 rounded-md mb-4 text-sm text-center mx-auto max-w-md">
                     {errorMsg}
                 </div>
             )}
@@ -152,12 +151,6 @@ function SignUp() {
                 >
                     {isSubmitting ? 'Creating Account' : 'Start Your Investing Journey Today'}
                 </Button>
-
-                <FooterLink
-                    text="Already Have An Account?"
-                    linkText="SignIn"
-                    href="/sign-in"
-                />
             </form>
         </div>
     );

@@ -21,32 +21,37 @@ function Layout({children}: { children: ReactNode }) {
 
     return (
         <main className="auth-layout">
-            <section className="auth-left-section scrollbar-hide-default scroll-pt-12">
-                <div className="flex justify-between items-center w-full pt-6 lg:pt-8 mb-4 lg:mb-6">
+            <section className="auth-left-section scrollbar-hide-default relative">
+                <div
+                    className="absolute top-0 left-0 right-0 flex justify-between items-center w-full px-6 lg:px-12 py-8 lg:py-12 z-20">
                     <Link href="/" className="auth-logo">
                         <Image
                             src="/assets/icons/logo1-nexttrade-dark (1).svg"
                             alt="NextTrade Logo"
-                            width={140}
-                            height={32}
-                            className="h-8 w-auto"
+                            width={300}
+                            height={80}
+                            className="h-16 lg:h-24 w-auto"
+                            priority
                         />
                     </Link>
 
                     <div>
                         {isSignIn ? (
-                            <Button asChild variant="outline" className="text-white border-white/20 hover:bg-white/10">
+                            <Button asChild variant="outline"
+                                    className="text-white border-white/20 hover:bg-white/10 px-8 h-12 text-lg">
                                 <Link href="/sign-up">Sign Up</Link>
                             </Button>
                         ) : (
-                            <Button asChild variant="outline" className="text-white border-white/20 hover:bg-white/10">
+                            <Button asChild variant="outline"
+                                    className="text-white border-white/20 hover:bg-white/10 px-8 h-12 text-lg">
                                 <Link href="/sign-in">Sign In</Link>
                             </Button>
                         )}
                     </div>
                 </div>
 
-                <div className="pb-7 lg:pb-9 flex-1">
+                <div
+                    className="flex-1 flex flex-col justify-center py-32 lg:py-20 max-w-[500px] mx-auto w-full min-h-screen">
                     {children}
                 </div>
             </section>
