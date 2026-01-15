@@ -3,7 +3,6 @@
 import {useForm} from 'react-hook-form';
 import {Button} from "@/components/ui/button";
 import InputField from "@/components/forms/inputField";
-import FooterLink from "@/components/forms/FooterLink";
 import {authClient} from "@/lib/better-auth/client";
 import {useState} from "react";
 import {signInWithEmail, signUpWithEmail} from "@/lib/actions/auth.actions";
@@ -58,7 +57,7 @@ function SignIn() {
 
             {errorMsg && (
                 <div
-                    className="bg-red-500/10 border border-red-500/50 text-red-500 p-3 rounded-md mb-4 text-sm text-center">
+                    className="bg-red-500/10 border border-red-500/50 text-red-500 p-3 rounded-md mb-4 text-sm text-center mx-auto max-w-md">
                     {errorMsg}
                 </div>
             )}
@@ -87,7 +86,6 @@ function SignIn() {
                     {isSubmitting ? 'Signing In...' : 'Sign In Now'}
                 </Button>
 
-                <FooterLink text="Don't Have An Account?" linkText="SignUp" href="/sign-up"/>
             </form>
         </div>
     );
