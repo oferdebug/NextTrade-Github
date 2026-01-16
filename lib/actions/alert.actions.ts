@@ -7,6 +7,17 @@ import {headers} from "next/headers";
 import {revalidatePath} from "next/cache";
 
 /**
+ * Interface for updating alert fields.
+ * Only allows modification of specific fields to maintain data integrity.
+ */
+export interface UpdateAlertData {
+    targetPrice?: number;
+    condition?: 'above' | 'below';
+    frequency?: 'once' | 'per_minute' | 'per_hour' | 'per_day';
+    isActive?: boolean;
+}
+
+/**
  * Create a new price alert for a user.
  */
 export async function createAlert(data: {
@@ -58,7 +69,7 @@ export async function getAlerts(activeOnly: boolean = false) {
 /**
  * Update an existing alert.
  */
-export async function updateAlert(alertId: string, data: any) {
+export async function updateAlert(alertId: string, data: UpdateAlertData) {
     try {
         const session = await auth.api.getSession({headers: await headers()});
         if (!session?.user) return {success: false, error: "Unauthorized"};
