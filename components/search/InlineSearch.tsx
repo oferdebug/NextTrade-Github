@@ -33,25 +33,35 @@ export function InlineSearch({
     const [searchTerm, setSearchTerm] = React.useState("")
     const [loading, setLoading] = React.useState(false)
     const [stocks, setStocks] = React.useState<StockWithWatchlistStatus[]>(initialStocks);
+    const latestRequestIdRef = React.useRef(0);
 
     const isSearchMode = !!searchTerm.trim();
     const displayStocks = isSearchMode ? stocks : (stocks?.length > 0 ? stocks : initialStocks);
 
     const handleSearch = async () => {
+        const requestId = ++latestRequestIdRef.current;
+
         if (!isSearchMode) {
             setStocks(initialStocks);
+            setLoading(false);
             return;
         }
 
         setLoading(true);
         try {
             const results = await searchStocks(searchTerm.trim());
-            setStocks(results);
+            if (requestId === latestRequestIdRef.current) {
+                setStocks(results);
+            }
         } catch (error) {
             console.error("Search failed:", error);
-            setStocks([]);
+            if (requestId === latestRequestIdRef.current) {
+                setStocks([]);
+            }
         } finally {
-            setLoading(false);
+            if (requestId === latestRequestIdRef.current) {
+                setLoading(false);
+            }
         }
     }
 
@@ -70,6 +80,7 @@ export function InlineSearch({
                 <input
                     type="text"
                     placeholder="Search stocks by symbol or name (e.g. TSLA, Microsoft)..."
+                    aria-label="Search stocks by symbol or name"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full h-14 pl-12 pr-12 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all shadow-lg"
