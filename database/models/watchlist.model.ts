@@ -1,15 +1,17 @@
 import mongoose, {Document, Model, Schema} from "mongoose";
 
 export interface WatchlistItem extends Document {
-    userId: string;
+    userId: mongoose.Types.ObjectId;
     symbol: string;
-    company: string;
+    companyName: string;
+    notes?: string;
     addedAt: Date;
 }
 
 const WatchlistSchema: Schema = new Schema({
     userId: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
         index: true
     },
@@ -19,10 +21,14 @@ const WatchlistSchema: Schema = new Schema({
         uppercase: true,
         trim: true
     },
-    company: {
+    companyName: {
         type: String,
         required: true,
         trim: true
+    },
+    notes: {
+        type: String,
+        default: ''
     },
     addedAt: {
         type: Date,

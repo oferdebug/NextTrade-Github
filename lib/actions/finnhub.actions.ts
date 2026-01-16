@@ -119,7 +119,7 @@ export const searchStocks = cache(async (query?: string): Promise<StockWithWatch
                 try {
                     const url = `${FINNHUB_BASE_URL}/stock/profile2?symbol=${symbol}&token=${NEXT_PUBLIC_FINNHUB_API_KEY}`;
                     const profile = await fetchJSON<{ name?: string; exchange?: string }>(url, 3600);
-                    
+
                     return {
                         symbol: symbol,
                         description: profile.name || symbol,
@@ -166,3 +166,44 @@ export const searchStocks = cache(async (query?: string): Promise<StockWithWatch
         return [];
     }
 });
+
+/**
+ * Get current quote for a stock.
+ */
+export async function getQuote(symbol: string) {
+    try {
+        const url = `${FINNHUB_BASE_URL}/quote?symbol=${symbol}&token=${NEXT_PUBLIC_FINNHUB_API_KEY}`;
+        return await fetchJSON<{
+            c: number; // Current price
+            d: number; // Change
+            dp: number; // Percent change
+            h: number; // High price of the day
+            l: number; // Low price of the day
+            o: number; // Open price of the day
+            pc: number; // Previous close price
+        }>(url, 60);
+    } catch (error) {
+        console.error(`Error fetching quote for ${symbol}:`, error);
+        return null;
+    }
+}
+
+/**
+ * Get company profile for a stock.
+ */
+export async function getCompanyProfile(symbol: string) {
+    try {
+        const url = `${FINNHUB_BASE_URL}/stock/profile2?symbol=${symbol}&token=${NEXT_PUBLIC_FINNHUB_API_KEY}`;
+        return await fetchJSON<{
+            name: string;
+            ticker: string;
+            logo: string;
+            marketCapitalization: number;
+            exchange: string;
+            currency: string;
+        }>(url, 86400);
+    } catch (error) {
+        console.error(`Error fetching profile for ${symbol}:`, error);
+        return null;
+    }
+}

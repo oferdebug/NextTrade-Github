@@ -3,11 +3,12 @@ import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {NAV_ITEMS} from "@/lib/constants"; // or '@/constants'
 import {cn} from "@/lib/utils";
-import {SearchCommand} from "@/components/SearchCommand"; // SENIOR NOTE: Using 'cn' utility from Shadcn to merge classes properly
+import {SearchCommand} from "@/components/SearchCommand";
+import {Star} from "lucide-react";
 
 /* SENIOR NOTE:
    Added 'className' prop to make the component reusable in different contexts
-   (e.g., Header horizontal menu vs Dropdown vertical menu).
+   (e.g., Header horizontal menu vs. a Dropdown vertical menu).
 */
 const NavItems = ({initialStocks, className}: { initialStocks: StockWithWatchlistStatus[]; className?: string }) => {
     const pathname = usePathname();
@@ -39,11 +40,12 @@ const NavItems = ({initialStocks, className}: { initialStocks: StockWithWatchlis
                         <Link
                             href={href}
                             className={cn(
-                                "transition-colors",
+                                "transition-colors flex items-center gap-1.5",
                                 isActive(href)
                                     ? "text-green-500"
                                     : "text-white hover:text-green-500"
                             )}>
+                            {label === "Watchlist" && <Star className="h-4 w-4"/>}
                             {label}
                         </Link>
                     </li>
