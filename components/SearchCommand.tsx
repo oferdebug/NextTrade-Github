@@ -15,6 +15,7 @@ import Link from "next/link";
 import {searchStocks} from "@/lib/actions/finnhub.actions";
 import {useEffect} from "react";
 import {useDebounce} from "@/hooks/useDebounce";
+import {StarButton} from "@/components/search/StarButton";
 
 interface SearchCommandProps {
     renderAs?: 'button' | 'text'
@@ -143,8 +144,11 @@ export function SearchCommand({
                                                 {stock.symbol}|{stock.exchange}|{stock.type}
                                             </div>
                                         </div>
-                                        <Star
-                                            className={cn("h-4 w-4", stock.isInWatchlist ? "fill-yellow-500 text-yellow-500" : "text-gray-400")}/>
+                                        <StarButton
+                                            symbol={stock.symbol}
+                                            companyName={stock.name}
+                                            initialIsWatched={stock.isInWatchlist}
+                                        />
                                     </Link>
                                 </li>
                             ))}

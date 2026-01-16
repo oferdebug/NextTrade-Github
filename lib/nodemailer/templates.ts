@@ -1125,3 +1125,122 @@ export const INACTIVE_USER_REMINDER_EMAIL_TEMPLATE = `<!DOCTYPE html>
     </table>
 </body>
 </html>`;
+
+export const WATCHLIST_SUMMARY_EMAIL_TEMPLATE = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="x-apple-disable-message-reformatting">
+    <title>Your Daily Watchlist Summary</title>
+    <!--[if mso]>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:AllowPNG/>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
+    <style type="text/css">
+        @media (prefers-color-scheme: dark) {
+            .email-container { background-color: #141414 !important; border: 1px solid #30333A !important; }
+            .dark-bg { background-color: #050505 !important; }
+            .dark-text { color: #ffffff !important; }
+            .dark-text-secondary { color: #9ca3af !important; }
+            .dark-text-muted { color: #6b7280 !important; }
+            .dark-border { border-color: #30333A !important; }
+        }
+        @media only screen and (max-width: 600px) {
+            .email-container { width: 100% !important; margin: 0 !important; }
+            .mobile-padding { padding: 24px !important; }
+            .mobile-header-padding { padding: 24px 24px 12px 24px !important; }
+            .mobile-text { font-size: 14px !important; line-height: 1.5 !important; }
+            .mobile-title { font-size: 24px !important; line-height: 1.3 !important; }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #050505; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #050505;">
+        <tr>
+            <td align="center" style="padding: 40px 20px;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="email-container" style="max-width: 600px; background-color: #141414; border-radius: 8px; border: 1px solid #30333A;">
+                    <tr>
+                        <td align="left" class="mobile-header-padding" style="padding: 40px 40px 20px 40px;">
+                            <img src="${LOGO_URL}" alt="${APP_NAME} Logo" width="150" style="max-width: 100%; height: auto;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="mobile-padding" style="padding: 0 40px 40px 40px;">
+                            <h1 class="mobile-title dark-text" style="margin: 0 0 10px 0; font-size: 24px; font-weight: 600; color: ${PRIMARY_COLOR};">
+                                📊 Your Daily Watchlist Summary
+                            </h1>
+                            <p class="dark-text-muted" style="margin: 0 0 30px 0; font-size: 14px; color: #6b7280;">{{date}}</p>
+                            
+                            <p class="mobile-text dark-text-secondary" style="margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; color: #CCDADC;">
+                                Hey {{name}}, here's how your {{totalStocks}} watched stocks performed today.
+                            </p>
+
+                            <!-- Highlights -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 30px;">
+                                <tr>
+                                    <td width="50%" style="padding-right: 10px;">
+                                        <div style="background-color: #064e3b; border: 1px solid #065f46; border-radius: 8px; padding: 15px; text-align: center;">
+                                            <p style="margin: 0 0 5px 0; font-size: 12px; color: #34d399; text-transform: uppercase;">Top Gainer</p>
+                                            <p style="margin: 0; font-size: 18px; font-weight: 700; color: #ffffff;">{{topGainerSymbol}}</p>
+                                            <p style="margin: 0; font-size: 14px; color: #34d399;">+{{topGainerChange}}%</p>
+                                        </div>
+                                    </td>
+                                    <td width="50%" style="padding-left: 10px;">
+                                        <div style="background-color: #7f1d1d; border: 1px solid #991b1b; border-radius: 8px; padding: 15px; text-align: center;">
+                                            <p style="margin: 0 0 5px 0; font-size: 12px; color: #f87171; text-transform: uppercase;">Top Loser</p>
+                                            <p style="margin: 0; font-size: 18px; font-weight: 700; color: #ffffff;">{{topLoserSymbol}}</p>
+                                            <p style="margin: 0; font-size: 14px; color: #f87171;">{{topLoserChange}}%</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- AI Summary Section -->
+                            {{aiSummarySection}}
+
+                            <!-- Stocks Table -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-collapse: collapse; margin-bottom: 30px;">
+                                <thead>
+                                    <tr style="border-bottom: 1px solid #30333A;">
+                                        <th align="left" style="padding: 10px 5px; color: #9ca3af; font-size: 12px; text-transform: uppercase;">Symbol</th>
+                                        <th align="left" style="padding: 10px 5px; color: #9ca3af; font-size: 12px; text-transform: uppercase;">Company</th>
+                                        <th align="right" style="padding: 10px 5px; color: #9ca3af; font-size: 12px; text-transform: uppercase;">Price</th>
+                                        <th align="right" style="padding: 10px 5px; color: #9ca3af; font-size: 12px; text-transform: uppercase;">Change %</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{stocksTable}}
+                                </tbody>
+                            </table>
+
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td align="center">
+                                        <a href="${DASHBOARD_URL}watchlist" style="display: block; background: ${PRIMARY_COLOR}; color: #000000; text-decoration: none; padding: 16px 32px; border-radius: 8px; font-size: 16px; font-weight: 500; text-align: center;">
+                                            View Full Watchlist
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Footer -->
+                            <div style="text-align: center; margin-top: 40px;">
+                                <p style="font-size: 12px; color: #6b7280;">NextTrade HQ, Tel Aviv, Israel</p>
+                                <p style="font-size: 12px; color: #6b7280;">© 2025 NextTrade</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>`;
