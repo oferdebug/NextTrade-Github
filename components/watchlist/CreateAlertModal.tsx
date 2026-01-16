@@ -62,13 +62,14 @@ export const CreateAlertModal = ({open, setOpen, initialData}: CreateAlertModalP
 
     const onSubmit = async (data: any) => {
         try {
-            const payload = {
-                ...data,
-                targetPrice: parseFloat(data.targetPrice)
-            };
-
             if (initialData?._id) {
-                const res = await updateAlert(initialData._id, payload);
+                // For updates, only pass allowed fields
+                const updatePayload = {
+                    targetPrice: parseFloat(data.targetPrice),
+                    condition: data.condition,
+                    frequency: data.frequency
+                };
+                const res = await updateAlert(initialData._id, updatePayload);
                 if (res.success) {
                     toast.success("Alert updated successfully");
                     setOpen(false);
@@ -76,6 +77,10 @@ export const CreateAlertModal = ({open, setOpen, initialData}: CreateAlertModalP
                     toast.error(res.error || "Failed to update alert");
                 }
             } else {
+                const payload = {
+                    ...data,
+                    targetPrice: parseFloat(data.targetPrice)
+                };
                 const res = await createAlert(payload);
                 if (res.success) {
                     toast.success("Alert created successfully");
