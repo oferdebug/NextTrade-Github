@@ -37,31 +37,27 @@ export function GlobalSearchCommand() {
         return () => document.removeEventListener("keydown", down)
     }, [])
 
+    // Load initial stocks when needed
+    const loadInitialStocks = React.useCallback(async () => {
+        if (stocks.length === 0) {
+            try {
+                const results = await searchStocks('');
+                setStocks(results);
+            } catch {
+                setStocks([]);
+            }
+        }
+    }, [stocks.length]);
+
     // Load initial stocks when dialog opens
     React.useEffect(() => {
         if (open && stocks.length === 0) {
-            searchStocks('').then(results => {
-                setStocks(results);
-            }).catch(() => {
-                setStocks([]);
-            });
+            loadInitialStocks();
         }
-    }, [open, stocks.length]);
+    }, [open, stocks.length, loadInitialStocks]);
 
     const handleSearch = async () => {
         if (!isSearchMode) {
-            // Reset to initial stocks if search term is cleared
-            if (stocks.length === 0) {
-                setLoading(true);
-                try {
-                    const results = await searchStocks('');
-                    setStocks(results);
-                } catch {
-                    setStocks([]);
-                } finally {
-                    setLoading(false);
-                }
-            }
             return;
         }
 
